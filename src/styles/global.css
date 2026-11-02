@@ -62,6 +62,12 @@ html:not(.gl-completo) [data-glass] {
   border: 1px solid rgb(244 239 230 / 0.18);
 }
 
+/* Superficie sólida con borde fino: la misma de la barra de navegación */
+.superficie {
+  background: rgb(18 18 16 / 0.96);
+  border: 1px solid rgb(244 239 230 / 0.16);
+}
+
 /* Barra */
 .barra {
   position: fixed;
@@ -194,7 +200,8 @@ nav a:hover, nav a[aria-current] { color: var(--papel); }
 
 /* Tiras de proyecto: cerradas ocupan una fila; al abrirse muestran el detalle */
 :root { interpolate-size: allow-keywords; }
-.tira { padding: 0; }
+.tira { padding: 0.4rem; border-radius: 42px; transition: border-radius 0.35s var(--suave), opacity 0.7s var(--suave), translate 0.7s var(--suave); }
+.tira[open] { border-radius: 28px; }
 .tira summary {
   position: relative;
   display: grid;
@@ -202,10 +209,12 @@ nav a:hover, nav a[aria-current] { color: var(--papel); }
   column-gap: clamp(1.5rem, 4vw, 4rem);
   align-items: center;
   padding: 1.05rem clamp(1.25rem, 2.2vw, 2rem);
-  border-radius: inherit;
+  border-radius: 24px;
   list-style: none;
   cursor: pointer;
+  transition: background 0.25s;
 }
+.tira summary:hover, .tira[open] summary { background: rgb(244 239 230 / 0.09); }
 .tira summary::-webkit-details-marker { display: none; }
 .tira summary .dato { grid-column: 1; }
 .tira .tira-resumen { grid-column: 2; grid-row: 1 / span 2; padding-right: 2.5rem; color: var(--tenue); font-size: 0.97rem; line-height: 1.45; transition: color 0.25s; }
@@ -230,7 +239,7 @@ nav a:hover, nav a[aria-current] { color: var(--papel); }
   transition: block-size 0.4s var(--suave), content-visibility 0.4s allow-discrete;
 }
 .tira[open]::details-content { block-size: auto; }
-.tira-detalle { padding: 0.35rem clamp(1.25rem, 2.2vw, 2rem) clamp(1.25rem, 2.2vw, 2rem); }
+.tira-detalle { padding: 1rem clamp(1.25rem, 2.2vw, 2rem) clamp(1.25rem, 2.2vw, 2rem); }
 
 /* Planilla */
 .detalle-planilla {
@@ -352,11 +361,33 @@ input[type='range']::-moz-range-thumb { width: 1.4rem; height: 1.4rem; border: 0
 .tuberia li.hecha::before { background: var(--hielo); }
 
 /* Servicios */
-.servicios { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 clamp(2rem, 5vw, 5rem); }
-.servicios li { padding: 1.1rem 0; border-top: 1px solid var(--linea); }
-.servicios h3 { margin: 0 0 0.3rem; font-size: clamp(1.1rem, 1.55vw, 1.35rem); }
-.servicios p { color: var(--tenue); }
-.tecnico { padding-top: 1.1rem; border-top: 1px solid var(--linea); }
+.servicios { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.75rem; }
+.servicio { display: flex; flex-direction: column; padding: 0.4rem; border-radius: 28px; }
+.servicio-imagen {
+  padding: 1rem;
+  border-radius: 22px;
+  background: radial-gradient(ellipse at 50% 120%, rgb(165 201 202 / 0.16), rgb(244 239 230 / 0.03) 70%);
+}
+.ilustracion { display: block; width: 100%; height: auto; }
+.ilustracion .trazo { stroke: rgb(244 239 230 / 0.72); stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+.ilustracion .tenue { stroke: rgb(244 239 230 / 0.26); stroke-width: 1.25; stroke-linecap: round; stroke-linejoin: round; }
+.ilustracion .relleno { fill: #1b1b19; }
+.ilustracion .relleno-suave { fill: rgb(244 239 230 / 0.07); }
+.ilustracion .acento-relleno { fill: var(--brasa); }
+.ilustracion .fondo-punto { fill: #1b1b19; }
+.ilustracion .flujo { stroke: var(--hielo); stroke-width: 1.5; stroke-linecap: round; stroke-dasharray: 3 6; }
+@media (prefers-reduced-motion: no-preference) {
+  .ilustracion .flujo { animation: flujo 1.4s linear infinite paused; }
+  .servicio:hover .flujo { animation-play-state: running; }
+}
+@keyframes flujo { to { stroke-dashoffset: -18; } }
+.servicio-texto { display: flex; flex: 1; flex-direction: column; align-items: flex-start; padding: 1.1rem 1.1rem 1rem; }
+.servicios h3 { margin: 0 0 0.4rem; font-size: clamp(1.1rem, 1.55vw, 1.35rem); }
+.servicios p { margin-bottom: 1.1rem; color: var(--tenue); }
+.servicio-texto .boton { margin-top: auto; }
+.tecnico { margin-top: 1.25rem; }
+.mas { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.75rem 1.5rem; margin-top: 1.25rem; padding: 0.7rem 0.7rem 0.7rem 1.5rem; border-radius: 26px; }
+.mas p { font-size: clamp(1.1rem, 1.55vw, 1.35rem); font-weight: 600; letter-spacing: -0.02em; }
 
 /* Herramientas */
 .panel-herramientas { display: grid; grid-template-columns: repeat(4, auto); justify-content: space-between; gap: 1.5rem 2rem; padding-top: 1.1rem; border-top: 1px solid var(--linea); }

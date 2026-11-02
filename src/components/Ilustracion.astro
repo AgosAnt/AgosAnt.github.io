@@ -1,0 +1,77 @@
+---
+interface Props {
+  tipo: 'sistemas' | 'movil' | 'escritorio' | 'nube';
+}
+const { tipo } = Astro.props;
+---
+<svg class="ilustracion" viewBox="0 0 320 180" fill="none" aria-hidden="true">
+  {tipo === 'sistemas' && (
+    <>
+      <rect class="relleno" x="36" y="24" width="178" height="132" rx="9" />
+      <rect class="trazo" x="36" y="24" width="178" height="132" rx="9" />
+      <path class="trazo" d="M36 44h178M84 44v112" />
+      <circle class="tenue" cx="48" cy="34" r="2.5" />
+      <circle class="tenue" cx="58" cy="34" r="2.5" />
+      <path class="tenue" d="M46 58h26M46 72h26M46 86h20" />
+      <rect class="acento-relleno" x="96" y="56" width="50" height="8" rx="4" />
+      <path class="tenue" d="M96 80h106M96 96h106M96 112h106M96 128h106" />
+      <path class="tenue" d="M124 72v64M162 72v64" />
+      <path class="flujo" d="M214 90h40" />
+      <ellipse class="relleno" cx="274" cy="66" rx="24" ry="9" />
+      <path class="relleno" d="M250 66v48c0 5 11 9 24 9s24-4 24-9V66" />
+      <ellipse class="trazo" cx="274" cy="66" rx="24" ry="9" />
+      <path class="trazo" d="M250 66v48c0 5 11 9 24 9s24-4 24-9V66M250 90c0 5 11 9 24 9s24-4 24-9" />
+    </>
+  )}
+  {tipo === 'movil' && (
+    <>
+      <path class="tenue" d="M10 60c30-16 56-12 84 2M8 96c28-14 52-10 86 6M226 44c26-12 52-10 86 4M226 84c30-10 54-8 86 8M226 124c26-10 54-8 86 6" />
+      <rect class="relleno" x="118" y="10" width="84" height="160" rx="13" />
+      <rect class="trazo" x="118" y="10" width="84" height="160" rx="13" />
+      <path class="tenue" d="M118 62c24-14 56-12 84 2M118 88c26-12 58-8 84 6M118 112c22-8 58-8 84 4" />
+      <circle class="flujo" cx="160" cy="84" r="26" />
+      <path class="acento-relleno" d="M160 96c-8-9-12-14-12-20a12 12 0 0 1 24 0c0 6-4 11-12 20z" />
+      <circle class="fondo-punto" cx="160" cy="76" r="4" />
+      <rect class="relleno-suave" x="130" y="130" width="60" height="26" rx="7" />
+      <path class="tenue" d="M139 139h42M139 147h26" />
+      <path class="trazo" d="M228 136a26 26 0 0 1 26-26M228 136a13 13 0 0 1 13-13" />
+      <circle class="acento-relleno" cx="228" cy="136" r="3.5" />
+    </>
+  )}
+  {tipo === 'escritorio' && (
+    <>
+      <rect class="relleno" x="60" y="16" width="200" height="124" rx="9" />
+      <rect class="trazo" x="60" y="16" width="200" height="124" rx="9" />
+      <path class="trazo" d="M136 140l-8 22M184 140l8 22M110 164h100" />
+      <path class="trazo" d="M60 36h200" />
+      <circle class="tenue" cx="72" cy="26" r="2.5" />
+      <circle class="tenue" cx="82" cy="26" r="2.5" />
+      <path class="trazo" d="M76 52h18l6 7h26v28H76z" />
+      <path class="trazo" d="M76 96h18l6 7h26v24H76z" />
+      <rect class="relleno-suave" x="146" y="50" width="98" height="24" rx="5" />
+      <path class="tenue" d="M154 58h64M154 66h40" />
+      <rect class="relleno-suave" x="146" y="80" width="98" height="24" rx="5" />
+      <path class="tenue" d="M154 88h72M154 96h34" />
+      <rect class="relleno-suave" x="146" y="110" width="98" height="20" rx="5" />
+      <rect class="acento-relleno" x="154" y="117" width="38" height="6" rx="3" />
+    </>
+  )}
+  {tipo === 'nube' && (
+    <>
+      <path class="relleno" d="M120 70h86a22 22 0 0 0 3-44 32 32 0 0 0-61-8 26 26 0 0 0-28 52z" />
+      <path class="trazo" d="M120 70h86a22 22 0 0 0 3-44 32 32 0 0 0-61-8 26 26 0 0 0-28 52z" />
+      <path class="flujo" d="M200 70v43" />
+      <path class="flujo" d="M40 126h240" />
+      <circle class="relleno" cx="40" cy="126" r="13" />
+      <circle class="trazo" cx="40" cy="126" r="13" />
+      <circle class="relleno" cx="120" cy="126" r="13" />
+      <circle class="trazo" cx="120" cy="126" r="13" />
+      <circle class="acento-relleno" cx="200" cy="126" r="13" />
+      <circle class="relleno" cx="280" cy="126" r="13" />
+      <circle class="trazo" cx="280" cy="126" r="13" />
+      <path class="trazo" d="M34 126l5 5 8-9M114 126l5 5 8-9" />
+      <path class="tenue" d="M274 126h12M280 120v12" />
+      <path class="tenue" d="M30 160h50l14-8 16 4 18-12 22 10h34" />
+    </>
+  )}
+</svg>

@@ -2,6 +2,7 @@
 import '@fontsource-variable/onest';
 import '@fontsource-variable/martian-mono';
 import '../styles/global.css';
+import Ilustracion from '../components/Ilustracion.astro';
 
 const correo = 'agozsant@gmail.com';
 const github = 'https://github.com/AgosAnt';
@@ -9,11 +10,13 @@ const descripcion =
   'Jonatan Santiago, ingeniero en sistemas y desarrollador de software. Sistemas web, aplicaciones Android con operación sin conexión, aplicaciones de escritorio y despliegue en la nube.';
 
 const servicios = [
-  ['Sistemas a medida', 'Aplicaciones web con backend, base de datos y permisos por rol, desde el modelo de datos hasta el despliegue.'],
-  ['Aplicaciones móviles para personal de campo', 'Aplicaciones Android que guardan el trabajo sin señal y lo sincronizan después, sin duplicar registros.'],
-  ['Aplicaciones de escritorio', 'Programas instalables con React y Electron para gestionar información dentro de su organización.'],
-  ['Nube y automatización', 'Pipelines de CI/CD, contenedores, despliegues en AWS o Azure y monitoreo de los servicios en producción.'],
-];
+  { tipo: 'sistemas', nombre: 'Sistemas a medida', texto: 'Aplicaciones web con backend, base de datos y permisos por rol, desde el modelo de datos hasta el despliegue.' },
+  { tipo: 'movil', nombre: 'Aplicaciones móviles para personal de campo', texto: 'Aplicaciones Android que guardan el trabajo sin señal y lo sincronizan después, sin duplicar registros.' },
+  { tipo: 'escritorio', nombre: 'Aplicaciones de escritorio', texto: 'Programas instalables con React y Electron para gestionar información dentro de tu organización.' },
+  { tipo: 'nube', nombre: 'Nube y automatización', texto: 'Pipelines de CI/CD, contenedores, despliegues en AWS o Azure y monitoreo de los servicios en producción.' },
+] as const;
+
+const enlaceCorreo = (asunto: string) => `mailto:${correo}?subject=${encodeURIComponent(asunto)}`;
 
 const herramientas = [
   ['Backend', ['Spring Boot', 'Node.js', 'Maven']],
@@ -46,8 +49,8 @@ const etapas = ['git push', 'Maven', 'Docker', 'Amazon ECR', 'EC2'];
       <a class="marca" href="#inicio" aria-label="Ir al inicio">JS</a>
       <nav aria-label="Secciones">
         <span class="indicador" aria-hidden="true"></span>
-        <a href="#proyectos">Proyectos</a>
         <a href="#servicios">Servicios</a>
+        <a href="#proyectos">Proyectos</a>
         <a href="#herramientas">Herramientas</a>
         <a href="#contacto">Contacto</a>
       </nav>
@@ -71,10 +74,34 @@ const etapas = ['git push', 'Maven', 'Docker', 'Amazon ECR', 'EC2'];
         </div>
       </section>
 
+      <section id="servicios" class="seccion" data-animo="0.2">
+        <h2 class="titulo" data-aparecer>Servicios</h2>
+        <ul class="servicios">
+          {servicios.map(({ tipo, nombre, texto }) => (
+            <li class="servicio superficie" data-aparecer>
+              <div class="servicio-imagen"><Ilustracion tipo={tipo} /></div>
+              <div class="servicio-texto">
+                <h3>{nombre}</h3>
+                <p>{texto}</p>
+                <a class="boton boton-chico" href={enlaceCorreo(`Consulta: ${nombre}`)}>¿Necesitas esto?</a>
+              </div>
+            </li>
+          ))}
+        </ul>
+        <p class="tecnico" data-aparecer>
+          <b>Soporte técnico.</b> Además del desarrollo, también puedo desempeñarme como técnico en la resolución de
+          problemas de equipos y sistemas.
+        </p>
+        <div class="mas superficie" data-aparecer>
+          <p>¿Necesitas algo más?</p>
+          <a class="boton boton-fuerte boton-chico" href={enlaceCorreo('Consulta sobre otro servicio')}>Contáctame</a>
+        </div>
+      </section>
+
       <section id="proyectos" class="seccion" data-animo="0">
         <h2 class="titulo" data-aparecer>Proyectos</h2>
 
-        <details class="panel tira" name="proyecto" data-glass>
+        <details class="panel tira superficie" name="proyecto" data-aparecer>
           <summary>
             <span class="dato">Líder técnico · equipo de 6</span>
             <h3>planilla-sis</h3>
@@ -148,7 +175,7 @@ const etapas = ['git push', 'Maven', 'Docker', 'Amazon ECR', 'EC2'];
           </div>
         </details>
 
-        <details class="panel tira" name="proyecto" data-glass>
+        <details class="panel tira superficie" name="proyecto" data-aparecer>
           <summary>
             <span class="dato">DevOps · AWS</span>
             <h3>Infraestructura DevOps con despliegue continuo</h3>
@@ -174,7 +201,7 @@ const etapas = ['git push', 'Maven', 'Docker', 'Amazon ECR', 'EC2'];
           </div>
         </details>
 
-        <details class="panel tira" name="proyecto" data-glass>
+        <details class="panel tira superficie" name="proyecto" data-aparecer>
           <summary>
             <span class="dato">Sector minero</span>
             <h3>Monitoreo de estrés térmico para minería</h3>
@@ -190,7 +217,7 @@ const etapas = ['git push', 'Maven', 'Docker', 'Amazon ECR', 'EC2'];
           </div>
         </details>
 
-        <details class="panel tira" name="proyecto" data-glass>
+        <details class="panel tira superficie" name="proyecto" data-aparecer>
           <summary>
             <span class="dato">Aplicación de escritorio</span>
             <h3>Ingesta</h3>
@@ -203,24 +230,6 @@ const etapas = ['git push', 'Maven', 'Docker', 'Amazon ECR', 'EC2'];
             <a class="enlace" href={`${github}/Ingesta`} rel="noopener">Ver el código en GitHub</a>
           </div>
         </details>
-      </section>
-
-      <section id="servicios" class="seccion" data-animo="0.2">
-        <h2 class="titulo" data-aparecer>Servicios</h2>
-        <div data-aparecer>
-          <ul class="servicios">
-            {servicios.map(([nombre, texto]) => (
-              <li>
-                <h3>{nombre}</h3>
-                <p>{texto}</p>
-              </li>
-            ))}
-          </ul>
-          <p class="tecnico">
-            <b>Soporte técnico.</b> Además del desarrollo, también puedo desempeñarme como técnico en la resolución de
-            problemas de equipos y sistemas.
-          </p>
-        </div>
       </section>
 
       <section id="herramientas" class="seccion" data-animo="0">
