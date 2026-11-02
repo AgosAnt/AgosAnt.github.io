@@ -187,9 +187,9 @@ nav a:hover, nav a[aria-current] { color: var(--papel); }
 }
 .enlace:hover { color: var(--brasa); }
 
-/* Proyectos, servicios y herramientas al 70 % en pantallas grandes; contacto mantiene todo el ancho */
+/* Todas las secciones al 70 % en pantallas grandes */
 @media (min-width: 1101px) {
-  #proyectos, #servicios, #herramientas { width: min(70%, 64.4rem); padding-inline: 0; }
+  .seccion { width: min(70%, 64.4rem); padding-inline: 0; }
 }
 
 /* Tiras de proyecto: cerradas ocupan una fila; al abrirse muestran el detalle */
