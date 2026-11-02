@@ -1,0 +1,260 @@
+---
+import '@fontsource-variable/onest';
+import '@fontsource-variable/martian-mono';
+import '../styles/global.css';
+
+const correo = 'agozsant@gmail.com';
+const github = 'https://github.com/AgosAnt';
+const descripcion =
+  'Jonatan Santiago, ingeniero en sistemas y desarrollador de software. Sistemas web, aplicaciones Android con operación sin conexión, aplicaciones de escritorio y despliegue en la nube.';
+
+const servicios = [
+  ['Sistemas a medida', 'Aplicaciones web con backend, base de datos y permisos por rol, desde el modelo de datos hasta el despliegue.'],
+  ['Aplicaciones móviles para personal de campo', 'Aplicaciones Android que guardan el trabajo sin señal y lo sincronizan después, sin duplicar registros.'],
+  ['Aplicaciones de escritorio', 'Programas instalables con React y Electron para gestionar información dentro de su organización.'],
+  ['Nube y automatización', 'Pipelines de CI/CD, contenedores, despliegues en AWS o Azure y monitoreo de los servicios en producción.'],
+];
+
+const herramientas = [
+  ['Backend', ['Spring Boot', 'Node.js', 'Maven']],
+  ['Interfaces y apps', ['React', 'Electron', 'Android Studio']],
+  ['Nube y operación', ['Docker', 'GitHub Actions', 'AWS: EC2, ECR, VPC', 'Azure', 'Prometheus', 'Grafana', 'Git']],
+  ['Datos y documentación', ['PostgreSQL', 'Power BI', 'Mermaid']],
+] as const;
+
+const etapas = ['git push', 'Maven', 'Docker', 'Amazon ECR', 'EC2'];
+---
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#0c0c0b" />
+    <title>Jonatan Santiago · Desarrollador de software</title>
+    <meta name="description" content={descripcion} />
+    <meta property="og:title" content="Jonatan Santiago · Desarrollador de software" />
+    <meta property="og:description" content={descripcion} />
+    <meta property="og:type" content="website" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <script is:inline>document.documentElement.classList.add('js');</script>
+  </head>
+  <body>
+    <canvas id="liquido" aria-hidden="true"></canvas>
+    <a class="saltar" href="#proyectos">Saltar a los proyectos</a>
+
+    <header class="barra" data-glass data-fijo data-radio="999">
+      <a class="marca" href="#inicio" aria-label="Ir al inicio">JS</a>
+      <nav aria-label="Secciones">
+        <span class="indicador" aria-hidden="true"></span>
+        <a href="#proyectos">Proyectos</a>
+        <a href="#servicios">Servicios</a>
+        <a href="#herramientas">Herramientas</a>
+        <a href="#contacto">Contacto</a>
+      </nav>
+    </header>
+
+    <main>
+      <section id="inicio" class="heroe" data-animo="0.45">
+        <h1 class="nombre">
+          <span class="linea">Jonatan</span>
+          <span class="linea">Santiago</span>
+        </h1>
+        <div class="heroe-pie">
+          <div class="presentacion">
+            <p class="rol">Ingeniero en Sistemas · Desarrollador de software</p>
+            <p class="lema">Sistemas web, aplicaciones móviles con operación sin conexión e infraestructura en la nube.</p>
+          </div>
+          <div class="acciones">
+            <a class="boton boton-fuerte" href="#proyectos">Ver proyectos</a>
+            <a class="boton" href="#contacto">Contacto</a>
+          </div>
+        </div>
+      </section>
+
+      <section id="proyectos" class="seccion" data-animo="0">
+        <h2 class="titulo" data-aparecer>Proyectos</h2>
+
+        <details class="panel tira" name="proyecto" data-glass>
+          <summary>
+            <span class="dato">Líder técnico · equipo de 6</span>
+            <h3>planilla-sis</h3>
+            <span class="tira-resumen">Asistencia, turnos y cálculo de planillas, con aplicación Android y panel web.</span>
+            <span class="tira-signo" aria-hidden="true"></span>
+          </summary>
+          <div class="tira-detalle detalle-planilla">
+          <div class="planilla-intro">
+            <p>
+              Control de asistencia, turnos y planillas. Los trabajadores marcan desde Android con validación por
+              GPS, los supervisores revisan en la web y el sistema calcula el pago con las reglas del Código de
+              Trabajo de Guatemala.
+            </p>
+            <p>
+              Responsable de la arquitectura, el contrato de la API, la aplicación Android con su sincronización sin
+              conexión y el despliegue en Azure.
+            </p>
+            <ul class="cifras">
+              <li><b>15</b> casos de uso</li>
+              <li><b>47</b> rutas de API documentadas</li>
+              <li><b>27</b> tablas con seguridad por fila</li>
+            </ul>
+            <p class="pila">React · TypeScript · Node.js · Express · PostgreSQL · Java Android · Azure · GitHub Actions</p>
+            <a class="enlace" href={`${github}/planilla-sis`} rel="noopener">Ver el código en GitHub</a>
+          </div>
+
+          <div class="demos">
+            <div class="demo" id="demo-cola">
+              <div class="demo-cabeza">
+                <h4>Demostración: registro sin conexión</h4>
+                <label class="interruptor">
+                  <input type="checkbox" id="senal" checked />
+                  <span class="riel" aria-hidden="true"></span>
+                  <span id="senal-texto">Con señal</span>
+                </label>
+              </div>
+              <p class="demo-ayuda">Desactive la señal y registre una marca. Al restablecerse, las marcas se envían en orden.</p>
+              <div class="cola-botones">
+                <button class="boton boton-chico boton-fuerte" id="marcar" type="button">Marcar entrada</button>
+                <button class="boton boton-chico" id="reintentar" type="button" disabled>Repetir último envío</button>
+              </div>
+              <ol class="cola" id="cola" aria-live="polite"></ol>
+              <p class="servidor">Registros en el servidor: <b id="servidor">0</b></p>
+            </div>
+
+            <form class="demo" id="demo-calculo">
+              <h4>Demostración: cálculo de una quincena</h4>
+              <label>
+                <span>Horas por jornada <output id="s-horas">10</output></span>
+                <input type="range" id="horas" min="1" max="12" step="0.5" value="10" />
+              </label>
+              <label>
+                <span>Jornadas en la quincena <output id="s-dias">11</output></span>
+                <input type="range" id="dias" min="1" max="13" value="11" />
+              </label>
+              <label>
+                <span>Tarifa por hora <output id="s-tarifa">Q25</output></span>
+                <input type="range" id="tarifa" min="15" max="80" value="25" />
+              </label>
+              <dl class="recibo">
+                <div><dt>Horas ordinarias</dt><dd id="r-ord"></dd></div>
+                <div><dt>Horas extra (× 1.5)</dt><dd id="r-ext"></dd></div>
+                <div><dt>Bruto</dt><dd id="r-bruto"></dd></div>
+                <div><dt>IGSS (4.83 %)</dt><dd id="r-igss"></dd></div>
+                <div><dt>Bonificación Incentivo</dt><dd>Q125.00</dd></div>
+                <div class="neto"><dt>Neto</dt><dd id="r-neto"></dd></div>
+              </dl>
+              <p class="demo-ayuda">Versión reducida para jornada diurna. Los montos son de ejemplo.</p>
+            </form>
+          </div>
+          </div>
+        </details>
+
+        <details class="panel tira" name="proyecto" data-glass>
+          <summary>
+            <span class="dato">DevOps · AWS</span>
+            <h3>Infraestructura DevOps con despliegue continuo</h3>
+            <span class="tira-resumen">Pipeline CI/CD del push al despliegue en EC2, con monitoreo en tiempo real.</span>
+            <span class="tira-signo" aria-hidden="true"></span>
+          </summary>
+          <div class="tira-detalle detalle-devops">
+          <div class="devops-texto">
+            <p>
+              Cada push a main compila con Maven, construye la imagen Docker, la publica en Amazon ECR y la despliega
+              en EC2 sin intervención manual. La infraestructura usa una VPC con subredes públicas y privadas, y
+              Security Groups. Prometheus y Grafana monitorean el servicio en tiempo real, y hay manifiestos de
+              Kubernetes para orquestarlo.
+            </p>
+          </div>
+          <ol class="tuberia" aria-label="Etapas del pipeline">
+            {etapas.map((etapa) => <li>{etapa}</li>)}
+          </ol>
+          <div class="devops-pie">
+            <p class="pila">Java · Spring Boot · Docker · GitHub Actions · AWS · Prometheus · Grafana · Kubernetes</p>
+            <a class="enlace" href={`${github}/devops-pj`} rel="noopener">Ver el código en GitHub</a>
+          </div>
+          </div>
+        </details>
+
+        <details class="panel tira" name="proyecto" data-glass>
+          <summary>
+            <span class="dato">Sector minero</span>
+            <h3>Monitoreo de estrés térmico para minería</h3>
+            <span class="tira-resumen">Bulbo húmedo, velocidad del viento y parámetros de seguridad industrial.</span>
+            <span class="tira-signo" aria-hidden="true"></span>
+          </summary>
+          <div class="tira-detalle">
+            <p>
+              Aplicación de uso inmediato para personal de campo. Implementa algoritmos para calcular temperaturas de
+              bulbo húmedo, velocidad del viento y parámetros de monitoreo del estrés térmico y la seguridad
+              industrial.
+            </p>
+          </div>
+        </details>
+
+        <details class="panel tira" name="proyecto" data-glass>
+          <summary>
+            <span class="dato">Aplicación de escritorio</span>
+            <h3>Ingesta</h3>
+            <span class="tira-resumen">Gestión de documentos personales y del paciente.</span>
+            <span class="tira-signo" aria-hidden="true"></span>
+          </summary>
+          <div class="tira-detalle">
+            <p>Gestión y control de documentos, tanto personales como del paciente.</p>
+            <p class="pila">React · Electron · Node.js</p>
+            <a class="enlace" href={`${github}/Ingesta`} rel="noopener">Ver el código en GitHub</a>
+          </div>
+        </details>
+      </section>
+
+      <section id="servicios" class="seccion" data-animo="0.2">
+        <h2 class="titulo" data-aparecer>Servicios</h2>
+        <div data-aparecer>
+          <ul class="servicios">
+            {servicios.map(([nombre, texto]) => (
+              <li>
+                <h3>{nombre}</h3>
+                <p>{texto}</p>
+              </li>
+            ))}
+          </ul>
+          <p class="tecnico">
+            <b>Soporte técnico.</b> Además del desarrollo, también puedo desempeñarme como técnico en la resolución de
+            problemas de equipos y sistemas.
+          </p>
+        </div>
+      </section>
+
+      <section id="herramientas" class="seccion" data-animo="0">
+        <h2 class="titulo" data-aparecer>Herramientas</h2>
+        <div class="panel-herramientas" data-aparecer>
+          {herramientas.map(([grupo, lista]) => (
+            <div class="grupo">
+              <h3>{grupo}</h3>
+              <ul>{lista.map((h) => <li>{h}</li>)}</ul>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section id="contacto" class="seccion contacto" data-animo="0.4">
+        <h2 class="titulo" data-aparecer>Contacto</h2>
+        <div class="panel panel-contacto" data-glass>
+          <button class="correo" id="copiar" type="button" data-correo={correo} aria-label={`Copiar el correo ${correo}`}>
+            <span id="correo-texto">{correo}</span>
+          </button>
+          <div class="caminos">
+            <a class="boton boton-fuerte" href={`mailto:${correo}?subject=${encodeURIComponent('Oportunidad laboral')}`}>Oportunidad laboral</a>
+            <a class="boton" href={`mailto:${correo}?subject=${encodeURIComponent('Cotización de proyecto')}`}>Solicitar cotización</a>
+            <a class="boton" href={github} rel="noopener">GitHub</a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="pie">Jonatan Santiago · {new Date().getFullYear()}</footer>
+
+    <script>
+      import '../scripts/liquido.ts';
+      import '../scripts/interfaz.ts';
+    </script>
+  </body>
+</html>
