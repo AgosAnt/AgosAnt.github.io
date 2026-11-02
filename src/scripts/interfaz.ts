@@ -174,28 +174,6 @@ $('demo-calculo').addEventListener('input', calcular);
 $('demo-calculo').addEventListener('submit', (e) => e.preventDefault());
 calcular();
 
-// Pipeline: recorre las etapas mientras el panel está en pantalla
-const etapas = [...document.querySelectorAll<HTMLLIElement>('.tuberia li')];
-let etapa = 0;
-let bucle: ReturnType<typeof setInterval> | undefined;
-
-function avanzarPipeline() {
-  etapas.forEach((li, i) => {
-    li.classList.toggle('activa', i === etapa);
-    li.classList.toggle('hecha', i < etapa);
-  });
-  etapa = (etapa + 1) % (etapas.length + 1);
-}
-
-if (reducido) {
-  etapas.forEach((li) => li.classList.add('hecha'));
-} else {
-  new IntersectionObserver(([e]) => {
-    clearInterval(bucle);
-    if (e.isIntersecting) bucle = setInterval(avanzarPipeline, 900);
-  }).observe(document.querySelector('.tuberia')!);
-}
-
 // Copiar el correo
 const copiar = $<HTMLButtonElement>('copiar');
 const textoCorreo = $('correo-texto');

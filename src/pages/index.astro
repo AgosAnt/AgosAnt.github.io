@@ -52,7 +52,6 @@ const herramientas = [
   ['Datos y documentación', ['PostgreSQL', 'Power BI', 'Mermaid']],
 ] as const;
 
-const etapas = ['git push', 'Maven', 'Docker', 'Amazon ECR', 'EC2'];
 ---
 <!doctype html>
 <html lang="es">
@@ -73,7 +72,9 @@ const etapas = ['git push', 'Maven', 'Docker', 'Amazon ECR', 'EC2'];
     <a class="saltar" href="#proyectos">Saltar a los proyectos</a>
 
     <header class="barra" data-glass data-fijo data-radio="999">
-      <a class="marca" href="#inicio" aria-label="Ir al inicio">JS</a>
+      <a class="marca" href="#inicio" aria-label="Ir al inicio">
+        <svg viewBox="0 0 32 32" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="2"><path d="M15.500 4C22.500 3.500 28 8.500 28 15.500c0 3-1.500 4.500-1.500 7.500 0 3.500-5 5-10 5C9.500 28 4 24 4 16.500 4 9 8.500 4.500 15.500 4z"/><path d="M15.500 9.500c4.500-.5 8 2.500 8 6.500 0 1.500-1 2.500-1 4 0 2-3 3.500-6.500 3.500-4 0-7-2.500-7-7 0-4 2.500-6.500 6.500-7z"/></g><circle cx="16" cy="16.500" r="2.500" fill="#d9976b"/></svg>
+      </a>
       <nav aria-label="Secciones">
         <span class="indicador" aria-hidden="true"></span>
         <a href="#servicios">Servicios</a>
@@ -133,36 +134,32 @@ const etapas = ['git push', 'Maven', 'Docker', 'Amazon ECR', 'EC2'];
       </section>
 
       <section id="proyectos" class="seccion" data-animo="0">
-        <h2 class="titulo" data-aparecer>Proyectos</h2>
+        <h2 class="titulo" data-aparecer>Proyectos de referencia</h2>
 
-        <details class="panel tira superficie" name="proyecto" data-aparecer>
-          <summary>
-            <span class="dato">Líder técnico · equipo de 6</span>
-            <h3>planilla-sis</h3>
-            <span class="tira-resumen">Asistencia, turnos y cálculo de planillas, con aplicación Android y panel web.</span>
-            <span class="tira-signo" aria-hidden="true"></span>
-          </summary>
-          <div class="tira-detalle detalle-planilla">
-          <div class="planilla-intro">
-            <p>
-              Control de asistencia, turnos y planillas. Los trabajadores marcan desde Android con validación por
-              GPS, los supervisores revisan en la web y el sistema calcula el pago con las reglas del Código de
-              Trabajo de Guatemala.
-            </p>
-            <p>
-              Responsable de la arquitectura, el contrato de la API, la aplicación Android con su sincronización sin
-              conexión y el despliegue en Azure.
-            </p>
-            <ul class="cifras">
-              <li><b>15</b> casos de uso</li>
-              <li><b>47</b> rutas de API documentadas</li>
-              <li><b>27</b> tablas con seguridad por fila</li>
-            </ul>
-            <p class="pila">React · TypeScript · Node.js · Express · PostgreSQL · Java Android · Azure · GitHub Actions</p>
-            <a class="enlace" href={`${github}/planilla-sis`} rel="noopener">Ver el código en GitHub</a>
-          </div>
-
-          <div class="demos">
+        <div class="proyectos superficie" data-aparecer>
+          <details class="proyecto" name="proyecto">
+            <summary>
+              <h3>planilla-sis</h3>
+              <span class="proyecto-resumen">Control de asistencia, turnos y planillas, con aplicación Android y panel web.</span>
+              <span class="proyecto-accion" aria-hidden="true"></span>
+            </summary>
+            <div class="proyecto-detalle">
+              <p>
+                Los trabajadores marcan su entrada desde Android, con validación por GPS; los supervisores revisan
+                las jornadas en la web y el sistema calcula el pago con las reglas del Código de Trabajo de Guatemala.
+              </p>
+              <p>
+                Fui el líder técnico de un equipo de 6 personas. Me encargué de la arquitectura, el contrato de la API,
+                la aplicación Android con su sincronización sin conexión y el despliegue en Azure.
+              </p>
+              <p>
+                El sistema cubre 15 casos de uso, con 47 rutas de API documentadas y seguridad por fila en sus 27 tablas.
+                Está hecho con React y TypeScript en la web, Node.js, Express y PostgreSQL en el servidor, y Java en Android.
+              </p>
+              <a class="enlace" href={`${github}/planilla-sis`} rel="noopener">Ver el código en GitHub</a>
+              <details class="proyecto-demos">
+                <summary>Probar dos partes del sistema</summary>
+                <div class="demos">
             <div class="demo" id="demo-cola">
               <div class="demo-cabeza">
                 <h4>Demostración: registro sin conexión</h4>
@@ -205,65 +202,57 @@ const etapas = ['git push', 'Maven', 'Docker', 'Amazon ECR', 'EC2'];
               </dl>
               <p class="demo-ayuda">Versión reducida para jornada diurna. Los montos son de ejemplo.</p>
             </form>
-          </div>
-          </div>
-        </details>
+                </div>
+              </details>
+            </div>
+          </details>
 
-        <details class="panel tira superficie" name="proyecto" data-aparecer>
-          <summary>
-            <span class="dato">DevOps · AWS</span>
-            <h3>Infraestructura DevOps con despliegue continuo</h3>
-            <span class="tira-resumen">Pipeline CI/CD del push al despliegue en EC2, con monitoreo en tiempo real.</span>
-            <span class="tira-signo" aria-hidden="true"></span>
-          </summary>
-          <div class="tira-detalle detalle-devops">
-          <div class="devops-texto">
-            <p>
-              Cada push a main compila con Maven, construye la imagen Docker, la publica en Amazon ECR y la despliega
-              en EC2 sin intervención manual. La infraestructura usa una VPC con subredes públicas y privadas, y
-              Security Groups. Prometheus y Grafana monitorean el servicio en tiempo real, y hay manifiestos de
-              Kubernetes para orquestarlo.
-            </p>
-          </div>
-          <ol class="tuberia" aria-label="Etapas del pipeline">
-            {etapas.map((etapa) => <li>{etapa}</li>)}
-          </ol>
-          <div class="devops-pie">
-            <p class="pila">Java · Spring Boot · Docker · GitHub Actions · AWS · Prometheus · Grafana · Kubernetes</p>
-            <a class="enlace" href={`${github}/devops-pj`} rel="noopener">Ver el código en GitHub</a>
-          </div>
-          </div>
-        </details>
+          <details class="proyecto" name="proyecto">
+            <summary>
+              <h3>Infraestructura DevOps con despliegue continuo</h3>
+              <span class="proyecto-resumen">Cada cambio en el código se publica solo en AWS y queda monitoreado en tiempo real.</span>
+              <span class="proyecto-accion" aria-hidden="true"></span>
+            </summary>
+            <div class="proyecto-detalle">
+              <p>
+                Cada push a main compila con Maven, construye la imagen Docker, la publica en Amazon ECR y la despliega
+                en EC2 sin intervención manual. La infraestructura usa una VPC con subredes públicas y privadas, y
+                Security Groups.
+              </p>
+              <p>
+                La API está hecha con Java y Spring Boot. Prometheus y Grafana monitorean el servicio en tiempo real, y
+                hay manifiestos de Kubernetes para orquestarlo.
+              </p>
+              <a class="enlace" href={`${github}/devops-pj`} rel="noopener">Ver el código en GitHub</a>
+            </div>
+          </details>
 
-        <details class="panel tira superficie" name="proyecto" data-aparecer>
-          <summary>
-            <span class="dato">Sector minero</span>
-            <h3>Monitoreo de estrés térmico para minería</h3>
-            <span class="tira-resumen">Bulbo húmedo, velocidad del viento y parámetros de seguridad industrial.</span>
-            <span class="tira-signo" aria-hidden="true"></span>
-          </summary>
-          <div class="tira-detalle">
-            <p>
-              Aplicación de uso inmediato para personal de campo. Implementa algoritmos para calcular temperaturas de
-              bulbo húmedo, velocidad del viento y parámetros de monitoreo del estrés térmico y la seguridad
-              industrial.
-            </p>
-          </div>
-        </details>
+          <details class="proyecto" name="proyecto">
+            <summary>
+              <h3>Monitoreo de estrés térmico para minería</h3>
+              <span class="proyecto-resumen">Cálculo de bulbo húmedo, velocidad del viento y parámetros de seguridad para personal de campo.</span>
+              <span class="proyecto-accion" aria-hidden="true"></span>
+            </summary>
+            <div class="proyecto-detalle">
+              <p>
+                Aplicación de uso inmediato para personal de campo. Implementa algoritmos para calcular temperaturas de
+                bulbo húmedo, velocidad del viento y parámetros de monitoreo del estrés térmico y la seguridad industrial.
+              </p>
+            </div>
+          </details>
 
-        <details class="panel tira superficie" name="proyecto" data-aparecer>
-          <summary>
-            <span class="dato">Aplicación de escritorio</span>
-            <h3>Ingesta</h3>
-            <span class="tira-resumen">Gestión de documentos personales y del paciente.</span>
-            <span class="tira-signo" aria-hidden="true"></span>
-          </summary>
-          <div class="tira-detalle">
-            <p>Gestión y control de documentos, tanto personales como del paciente.</p>
-            <p class="pila">React · Electron · Node.js</p>
-            <a class="enlace" href={`${github}/Ingesta`} rel="noopener">Ver el código en GitHub</a>
-          </div>
-        </details>
+          <details class="proyecto" name="proyecto">
+            <summary>
+              <h3>Ingesta</h3>
+              <span class="proyecto-resumen">Aplicación de escritorio para gestionar documentos personales y del paciente.</span>
+              <span class="proyecto-accion" aria-hidden="true"></span>
+            </summary>
+            <div class="proyecto-detalle">
+              <p>Gestión y control de documentos, tanto personales como del paciente. Está hecha con React, Electron y Node.js.</p>
+              <a class="enlace" href={`${github}/Ingesta`} rel="noopener">Ver el código en GitHub</a>
+            </div>
+          </details>
+        </div>
       </section>
 
       <section id="herramientas" class="seccion" data-animo="0">
