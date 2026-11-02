@@ -1,0 +1,66 @@
+---
+// Miniatura decorativa de cada servicio. Los datos son de ejemplo.
+interface Props {
+  tipo: 'sistemas' | 'movil' | 'escritorio' | 'nube';
+}
+const { tipo } = Astro.props;
+---
+<div class={`muestra muestra-${tipo}`} aria-hidden="true">
+  {tipo === 'sistemas' && (
+    <div class="ventana">
+      <div class="ventana-barra">
+        <span>Planilla · 1.ª quincena</span>
+        <span class="estado">Aprobada</span>
+      </div>
+      <div class="tabla">
+        <span class="tabla-titulo">Ruta</span><span class="tabla-titulo">Horas</span><span class="tabla-titulo">Neto</span>
+        <span>Norte</span><span class="numero">110</span><span class="numero">Q3,003.89</span>
+        <span>Sur</span><span class="numero">96</span><span class="numero">Q2,408.12</span>
+        <span>Oficina</span><span class="numero">88</span><span class="numero">Q2,217.50</span>
+      </div>
+    </div>
+  )}
+  {tipo === 'movil' && (
+    <>
+      <div class="telefono">
+        <span class="telefono-hora">07:58</span>
+        <span class="telefono-dato">Turno iniciado</span>
+        <span class="telefono-boton">Marcar salida</span>
+      </div>
+      <ul class="destinos">
+        <li>Guardado en el teléfono</li>
+        <li>Disponible sin internet</li>
+        <li class="activo">Sincronizado en la nube</li>
+      </ul>
+    </>
+  )}
+  {tipo === 'escritorio' && (
+    <div class="ventana ventana-archivos">
+      <div class="carpetas">
+        <span class="activo">Expedientes</span>
+        <span>Contratos</span>
+        <span>Reportes</span>
+      </div>
+      <div class="archivos">
+        <span>Expediente-014.pdf</span>
+        <span>Expediente-015.pdf</span>
+        <span>Resumen-octubre.xlsx</span>
+        <span>Autorización.docx</span>
+      </div>
+    </div>
+  )}
+  {tipo === 'nube' && (
+    <div class="ventana">
+      <div class="ventana-barra">
+        <span>Actualización del sistema</span>
+        <span class="estado">En línea</span>
+      </div>
+      <ol class="pasos">
+        <li>Cambio guardado</li>
+        <li>Versión preparada</li>
+        <li>Publicada en la nube</li>
+        <li class="activo">Monitoreo activo</li>
+      </ol>
+    </div>
+  )}
+</div>

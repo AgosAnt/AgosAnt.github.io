@@ -2,7 +2,7 @@
 import '@fontsource-variable/onest';
 import '@fontsource-variable/martian-mono';
 import '../styles/global.css';
-import Ilustracion from '../components/Ilustracion.astro';
+import Muestra from '../components/Muestra.astro';
 
 const correo = 'agozsant@gmail.com';
 const github = 'https://github.com/AgosAnt';
@@ -10,10 +10,37 @@ const descripcion =
   'Jonatan Santiago, ingeniero en sistemas y desarrollador de software. Sistemas web, aplicaciones Android con operación sin conexión, aplicaciones de escritorio y despliegue en la nube.';
 
 const servicios = [
-  { tipo: 'sistemas', nombre: 'Sistemas a medida', texto: 'Aplicaciones web con backend, base de datos y permisos por rol, desde el modelo de datos hasta el despliegue.' },
-  { tipo: 'movil', nombre: 'Aplicaciones móviles para personal de campo', texto: 'Aplicaciones Android que guardan el trabajo sin señal y lo sincronizan después, sin duplicar registros.' },
-  { tipo: 'escritorio', nombre: 'Aplicaciones de escritorio', texto: 'Programas instalables con React y Electron para gestionar información dentro de tu organización.' },
-  { tipo: 'nube', nombre: 'Nube y automatización', texto: 'Pipelines de CI/CD, contenedores, despliegues en AWS o Azure y monitoreo de los servicios en producción.' },
+  {
+    tipo: 'sistemas',
+    nombre: 'Sistemas a medida',
+    texto: 'Programas web para organizar el trabajo de tu empresa: registros, reportes, planillas y accesos según el puesto de cada persona.',
+    tecnico: 'React · Node.js · Spring Boot · PostgreSQL',
+  },
+  {
+    tipo: 'movil',
+    nombre: 'Aplicaciones móviles',
+    texto: 'Diseño y desarrollo tu aplicación Android desde cero, según lo que tu negocio o tu idea necesiten. Puede incluir, por ejemplo:',
+    caracteristicas: [
+      'Solo en el teléfono',
+      'Sincronización con la nube',
+      'Uso sin internet',
+      'Cuentas y permisos',
+      'Ubicación por GPS',
+    ],
+    tecnico: 'Android · Java · SQLite · API REST',
+  },
+  {
+    tipo: 'escritorio',
+    nombre: 'Aplicaciones de escritorio',
+    texto: 'Programas que se instalan en la computadora para manejar documentos e información interna, sin depender de un navegador.',
+    tecnico: 'React · Electron · Node.js',
+  },
+  {
+    tipo: 'nube',
+    nombre: 'Nube y automatización',
+    texto: 'Publico tu sistema en internet, automatizo cada actualización y dejo monitoreo para detectar fallas a tiempo.',
+    tecnico: 'Docker · GitHub Actions · AWS · Azure · Grafana',
+  },
 ] as const;
 
 const enlaceCorreo = (asunto: string) => `mailto:${correo}?subject=${encodeURIComponent(asunto)}`;
@@ -77,16 +104,23 @@ const etapas = ['git push', 'Maven', 'Docker', 'Amazon ECR', 'EC2'];
       <section id="servicios" class="seccion" data-animo="0.2">
         <h2 class="titulo" data-aparecer>Servicios</h2>
         <ul class="servicios">
-          {servicios.map(({ tipo, nombre, texto }) => (
-            <li class="servicio superficie" data-aparecer>
-              <div class="servicio-imagen"><Ilustracion tipo={tipo} /></div>
+          {servicios.map((servicio) => {
+            const { tipo, nombre, texto, tecnico } = servicio;
+            return (
+            <li class="servicio" data-aparecer>
+              <Muestra tipo={tipo} />
               <div class="servicio-texto">
                 <h3>{nombre}</h3>
                 <p>{texto}</p>
+                {'caracteristicas' in servicio && (
+                  <ul class="caracteristicas">{servicio.caracteristicas.map((c) => <li>{c}</li>)}</ul>
+                )}
+                <p class="servicio-tecnico">{tecnico}</p>
                 <a class="boton boton-chico" href={enlaceCorreo(`Consulta: ${nombre}`)}>¿Necesitas esto?</a>
               </div>
             </li>
-          ))}
+            );
+          })}
         </ul>
         <p class="tecnico" data-aparecer>
           <b>Soporte técnico.</b> Además del desarrollo, también puedo desempeñarme como técnico en la resolución de
@@ -247,14 +281,29 @@ const etapas = ['git push', 'Maven', 'Docker', 'Amazon ECR', 'EC2'];
       <section id="contacto" class="seccion contacto" data-animo="0.4">
         <h2 class="titulo" data-aparecer>Contacto</h2>
         <div class="panel panel-contacto" data-glass>
-          <button class="correo" id="copiar" type="button" data-correo={correo} aria-label={`Copiar el correo ${correo}`}>
-            <span id="correo-texto">{correo}</span>
-          </button>
-          <div class="caminos">
-            <a class="boton boton-fuerte" href={`mailto:${correo}?subject=${encodeURIComponent('Contacto desde el portafolio')}`}>Contáctame</a>
-            <a class="boton" href={github} rel="noopener">GitHub</a>
-            <a class="boton" href={`mailto:${correo}?subject=${encodeURIComponent('Cotización de proyecto')}`}>Solicitar cotización</a>
+          <div class="contacto-texto">
+            <h3>Conversemos sobre tu proyecto</h3>
+            <p>Cuéntame qué necesitas y te responderé por correo.</p>
+            <div class="caminos">
+              <a class="boton boton-fuerte" href={enlaceCorreo('Contacto desde el portafolio')}>Contáctame</a>
+              <a class="boton" href={enlaceCorreo('Cotización de proyecto')}>Solicitar cotización</a>
+            </div>
           </div>
+          <dl class="contacto-datos">
+            <div>
+              <dt>Correo</dt>
+              <dd>
+                <button class="correo" id="copiar" type="button" data-correo={correo} aria-label={`Copiar el correo ${correo}`}>
+                  <span id="correo-texto">{correo}</span>
+                  <span class="correo-accion" aria-hidden="true">Copiar</span>
+                </button>
+              </dd>
+            </div>
+            <div>
+              <dt>GitHub</dt>
+              <dd><a href={github} rel="noopener">github.com/AgosAnt</a></dd>
+            </div>
+          </dl>
         </div>
       </section>
     </main>
